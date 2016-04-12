@@ -95,6 +95,15 @@
                 latLngBounds.extend(mapCurrent);
                 
                 map.fitBounds(latLngBounds);
+                
+                //追加したオブジェクトにイベントリスナを追加。
+                google.maps.event.addListener(marker_current, 'click', function() {
+                    var infoWindow = new google.maps.InfoWindow();
+                    
+                    infoWindow.setContent(marker_current.title);
+                    infoWindow.open(map, marker_current);
+                    
+                });
             }
 		});        
     </script>
