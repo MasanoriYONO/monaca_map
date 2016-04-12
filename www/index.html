@@ -49,6 +49,14 @@
 				title:"静岡駅",
 			});
 			map.setCenter(mapCenter);
+            
+            //追加したオブジェクトにイベントリスナを追加。
+        	google.maps.event.addListener(marker_station, 'click', function() {
+				var infoWindow = new google.maps.InfoWindow();
+				
+				infoWindow.setContent(marker_station.title);
+				infoWindow.open(map, marker_station);
+			});
 		});        
     </script>
 </head>
