@@ -57,6 +57,26 @@
 				infoWindow.setContent(marker_station.title);
 				infoWindow.open(map, marker_station);
 			});
+            
+            // 位置情報取得オブジェクトオプション
+            var gps_option = {
+                timeout:10000,            // タイムアウト
+                enableHighAccuracy:true,   // GPS利用
+                maximumAge: 0
+            }
+         
+            // 位置情報を取得
+            navigator.geolocation.getCurrentPosition(
+                function(position){
+                	latitude = position.coords.latitude;
+					longitude = position.coords.longitude;
+					alert("latitude:" + latitude + "\n" + 
+						"longitude:" + longitude);
+            	},
+            	function(e){
+            		alert("GPS error." + "\n" + e.code + ":" + e.message);
+            	},
+            	gps_option);
 		});        
     </script>
 </head>
