@@ -66,17 +66,18 @@
             }
          
             // 位置情報を取得
-            navigator.geolocation.getCurrentPosition(
-                function(position){
-                	latitude = position.coords.latitude;
-					longitude = position.coords.longitude;
-					alert("latitude:" + latitude + "\n" + 
-						"longitude:" + longitude);
-            	},
-            	function(e){
-            		alert("GPS error." + "\n" + e.code + ":" + e.message);
-            	},
-            	gps_option);
+            navigator.geolocation.getCurrentPosition(resultHandler, errorHandler, gps_option);
+            
+            function errorHandler(e){
+                alert("GPS error." + "\n" + e.code + ":" + e.message);
+        	}
+        	
+            function resultHandler(position){
+				latitude = position.coords.latitude;
+				longitude = position.coords.longitude;
+				alert("latitude:" + latitude + "\n" + 
+					"longitude:" + longitude);
+            }
 		});        
     </script>
 </head>
