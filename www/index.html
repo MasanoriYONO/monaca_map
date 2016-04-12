@@ -88,6 +88,13 @@
                     map:map,
                     title:"いまここ",
                 });
+                
+                var latLngBounds = new google.maps.LatLngBounds();
+                latLngBounds.extend(mapCenter);
+                
+                latLngBounds.extend(mapCurrent);
+                
+                map.fitBounds(latLngBounds);
             }
 		});        
     </script>
