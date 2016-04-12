@@ -7,11 +7,48 @@
     <script src="components/loader.js"></script>
     <link rel="stylesheet" href="components/loader.css">
     <link rel="stylesheet" href="css/style.css">
-    <script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script type="text/javascript">
+        //マップ関係
+        var directionsService;
+        var directionsDisplay;
+        var map;
+        var mapCenter;
+        var mapCurrent;
+        var distance;
+        var distanceText;
+        var durationText;
+
+        var markerObjs = null;
+        
+        google.maps.event.addDomListener(window, 'load', function(){
+            $("#map_canvas").empty();
+        
+            //マップ関係
+            // var mapDiv = document.getElementById("map_canvas");
+            var mapDiv = $("#map_canvas").get(0);
+            
+            // 位置情報取得オブジェクトチェック
+            if (!navigator.geolocation){
+                mapDiv.html("Geolocation 使用不可");
+            }
+             
+            mapCenter = new google.maps.LatLng(34.971953, 138.388959);
+    		var map_options = {
+				zoom:16,                // 表示倍率
+				center:mapCenter,       // 中央位置
+				mapTypeId:google.maps.MapTypeId.ROADMAP,
+				scaleControl:true       // 倍率変更
+			};
+			// 地図を表示
+			map = new google.maps.Map(mapDiv, map_options);
+
+		});        
     </script>
 </head>
 <body>
-	<br />
-    This is a template for Monaca app.
+    <div id="map_canvas"></div>
+    <div id="result"></div>
 </body>
 </html>
