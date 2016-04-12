@@ -83,10 +83,22 @@
                 
                 // 現在地
                 mapCurrent = new google.maps.LatLng(latitude, longitude);
+                var blue_dot_image = new google.maps.MarkerImage(
+                        './images/bluedot.png',
+                        null, // size
+                        null, // origin
+                        new google.maps.Point( 8, 8 ), // anchor (move to center of marker)
+                        new google.maps.Size( 17, 17 ) // scaled size (required for Retina display icon)
+            	);
+    			
                 var marker_current = new google.maps.Marker({
                     position:mapCurrent,
                     map:map,
-                    title:"いまここ",
+                    title:"現在地",
+                    icon: blue_dot_image,
+                    flat: true,
+                    optimized: false,
+                    visible: true,  
                 });
                 
                 var latLngBounds = new google.maps.LatLngBounds();
