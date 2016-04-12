@@ -69,14 +69,25 @@
             navigator.geolocation.getCurrentPosition(resultHandler, errorHandler, gps_option);
             
             function errorHandler(e){
-                alert("GPS error." + "\n" + e.code + ":" + e.message);
+//                 alert("GPS error." + "\n" + e.code + ":" + e.message);
+        		console.log("GPS error." + "\n" + e.code + ":" + e.message);
         	}
         	
             function resultHandler(position){
 				latitude = position.coords.latitude;
 				longitude = position.coords.longitude;
-				alert("latitude:" + latitude + "\n" + 
-					"longitude:" + longitude);
+// 				alert("latitude:" + latitude + "\n" + 
+// 					"longitude:" + longitude);
+				console.log(latitude);
+                console.log(longitude);
+                
+                // 現在地
+                mapCurrent = new google.maps.LatLng(latitude, longitude);
+                var marker_current = new google.maps.Marker({
+                    position:mapCurrent,
+                    map:map,
+                    title:"いまここ",
+                });
             }
 		});        
     </script>
