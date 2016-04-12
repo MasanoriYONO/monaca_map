@@ -115,9 +115,62 @@
                     infoWindow.setContent(marker_current.title);
                     infoWindow.open(map, marker_current);
                     
+                    requestRoute(mapCurrent, mapCenter);
                 });
             }
-		});        
+		});
+        
+        //徒歩でのルート検索
+        /*-------------------------------------------------------------------*/
+        function requestRoute( from , dest ){
+         //    var t_loc_array = new Array();
+            // for(var i = 1; i < data.length - 1; i++){
+            // 	var t_loc = data[i].lat + "," + data[i].lng;
+        	// 	t_loc_array.push({location:data[i].lat + "," + data[i].lng,stopover:false});
+        	// }
+        	
+            //リクエスト作成
+            var request = {
+                origin : from,
+                destination : dest,
+                travelMode:google.maps.DirectionsTravelMode.WALKING,
+                // waypoints:t_loc_array,
+                provideRouteAlternatives: true, //オルタネイティブルートの表示
+                unitSystem: google.maps.DirectionsUnitSystem.METRIC
+            };
+            //サービスの作成
+            directionsService = new google.maps.DirectionsService();
+            directionsService.route( request , callback_direction );
+            //コールバック
+            function callback_direction( result , status ){
+                
+                //OKの場合
+                if( status == google.maps.DirectionsStatus.OK ){
+                    //すでにルートがある場合は削除する
+                    if( directionsDisplay ){
+                        directionsDisplay.setMap(null);
+                    }
+                    var rendererOptions = {
+                            draggable: false,
+                            preserveViewport:false,
+                            suppressMarkers:true,
+                            "map" : map
+                        };
+                    //マップにルートを描画
+                    directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+                    directionsDisplay.setDirections( result );
+	　　 
+	        		console.log(JSON.stringify(result));
+                    distance  = result.routes[0].legs[0].distance.value;
+                    // var cal = parseInt( result.routes[0].legs[0].distance.value / 1000 * 40 , 10 );
+                    distanceText = result.routes[0].legs[0].distance.text;
+                    durationText = result.routes[0].legs[0].duration.text;
+                    
+                    $("#result").html("距離：" + distanceText + "<br/>時間："+ durationText);
+                    $("#result").css('display','block');
+                }
+            }    
+        }
     </script>
 </head>
 <body>
