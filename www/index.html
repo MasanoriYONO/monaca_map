@@ -43,7 +43,12 @@
 			};
 			// 地図を表示
 			map = new google.maps.Map(mapDiv, map_options);
-
+            var marker_station = new google.maps.Marker({
+        		position:mapCenter,
+				map:map,
+				title:"静岡駅",
+			});
+			map.setCenter(mapCenter);
 		});        
     </script>
 </head>
